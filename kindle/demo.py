@@ -22,11 +22,11 @@ sentence = []
 for i in range(0,sum):
     book = clips[i].split("\n-")
     both.append(book)
-    print(book)
+    # print(book)
     if (book!=['']): # 如果书名为空
         books.append(book[0])
         sentence.append(book[1])
-#print(both)
+# print(both)
 #print(sentence)
 #print(books.__len__())
 #print(sentence.__len__())
@@ -60,13 +60,13 @@ nameOfBooks.sort(key=books.index)
 # 根据不同书名建立字典，字典值为列表
 books_dict = {}
 for j in range(0,nameOfBooks.__len__()):
-    books_dict [nameOfBooks[j]] = []
+    books_dict [nameOfBooks[j]] = {}
 #print("\n字典长度：",len(books_dict))
 #print(books_dict[nameOfBooks[1]])
 
 # 添加字典的内容 （构建一个一对多的数据结构）
 temp = []
-change = []
+# change = {}
 for j in range(0,sentence.__len__()):
     temp = both[j]
     #print(temp)
@@ -74,6 +74,6 @@ for j in range(0,sentence.__len__()):
     print(change)
     if (temp[0] in books_dict): # 检索字典
         print("true")
-        #change.append[temp[1]]
+        books_dict[temp[0]].join(temp[1])
 print(books_dict)
 print(len(books_dict))
