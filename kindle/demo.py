@@ -1,9 +1,11 @@
+#coding=utf-8
 import re
+import os,os.path
 BOUNDARY = u"==========\n"
 TWOBOUNDARY = u"==========\n==========\n"
 
 #主函数，目前可实现利用关键词进行简单的分割成列表。
-f = open("source.txt", "r", encoding='utf-8')
+f = open("foo.txt", "r", encoding='utf-8')
 content = f.read()  # 读取全部内容
 content = content.replace(u'\ufeff', u'') #替换书名前的空格
 #content = content.replace(TWOBOUNDARY,BOUNDARY)
@@ -57,23 +59,34 @@ nameOfBooks.sort(key=books.index)
 #print(nameOfBooks.__len__()) # 书名的总数
 #print(nameOfBooks.count(""))
 
-# 根据不同书名建立字典，字典值为列表
-books_dict = {}
+
+# 根据不同书名建立文件
+# print(os.listdir())
+os.mkdir('books') #创建一个books目录，用于存放书名
+# print(os.listdir())
+os.chdir('books') #更改工作目录
 for j in range(0,nameOfBooks.__len__()):
-    books_dict [nameOfBooks[j]] = {}
+    if (nameOfBooks[j]!='Who Moved My Cheese? (Spencer Johnson)'):
+        if (nameOfBooks[j]!='Send to Kindle | 当读书失去动力，你该如何重燃阅读的激情？ (kindle@eub-inc.com)'):
+            f=open(nameOfBooks[j]+".html",'w',encoding='utf-8')
+            f.write(u"cyang\编码\n")
+            s=nameOfBooks[j]
+            f.write("<h1>"+s+"</h1>")
+            f.close()
 #print("\n字典长度：",len(books_dict))
 #print(books_dict[nameOfBooks[1]])
 
-# 添加字典的内容 （构建一个一对多的数据结构）
-temp = []
-# change = {}
+# 向文件添加标注内容
+print(os.listdir())
+file_list = os.listdir(".") #获取当前目录文件名，存放于file_list
 for j in range(0,sentence.__len__()):
     temp = both[j]
-    #print(temp)
-    change = books_dict[temp[0]]
-    print(change)
-    if (temp[0] in books_dict): # 检索字典
+    if (temp[0]+".html" in file_list ): # 检索字典
         print("true")
-        books_dict[temp[0]].join(temp[1])
-print(books_dict)
-print(len(books_dict))
+        s = temp[1] #获取标注数据
+        f=open(temp[0]+".html",'a',encoding='utf-8') #打开对应的文件
+        f.write(u'\n')
+        # f.write(s)
+        f.write("<h3>"+s+"</h3>") #写入新的标注数据
+        f.write(u'========\n')
+        f.close()
